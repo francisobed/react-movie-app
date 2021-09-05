@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-import { AppBar, Toolbar, Button, IconButton, Typography, makeStyles, Tabs, Tab, Drawer, useTheme,useMediaQuery } from '@material-ui/core';
+import { AppBar, Toolbar, IconButton, makeStyles, Tabs, Tab, useTheme,useMediaQuery } from '@material-ui/core';
 
 //imported MenuIcon 
 import MenuIcon from '@material-ui/icons/Menu';
@@ -8,7 +8,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 //imported live tv icon
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import LocalMoviesIcon from '@material-ui/icons/LocalMovies';
-import MovieFilterIcon from '@material-ui/icons/MovieFilter';
 import LiveTvIcon from '@material-ui/icons/LiveTv';
 
 //import Drawer Component before rendering
