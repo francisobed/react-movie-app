@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
 import { AppBar, Toolbar, IconButton, makeStyles, Tabs, Tab, useTheme,useMediaQuery } from '@material-ui/core';
 
 //imported MenuIcon 
 import MenuIcon from '@material-ui/icons/Menu';
+import {useHistory} from 'react-router-dom'
 
 //imported live tv icon
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
@@ -31,13 +32,30 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const NavbarComponent = () => {
-
+//state management
   const classes = useStyles();
   const [openDrawer, setOpenDrawer] = useState(true);
+  const [value, setValue] = useState(0);
 
   //theme customizations
   const theme = useTheme();
-  const isMatch = useMediaQuery(theme.breakpoints.down("sm"))
+  const isMatch = useMediaQuery(theme.breakpoints.down("sm"));
+
+  //history
+  const history = useHistory();
+
+  const handleChange = (e, newValue) => {
+    setValue(newValue);
+    console.log(newValue);
+  }
+
+  //Routung
+  useEffect(() => {
+    if(value === 0) history.push("/");
+    if(value === 1) history.push("/trending");
+    if(value === 2) history.push("/series");
+  }, [value]);
+
     return (
       <>
       <AppBar position="static">
@@ -54,25 +72,23 @@ const NavbarComponent = () => {
            
           {/* Tabs */}
         
-        {!isMatch && 
-        <Tabs>
+        {!isMatch && (
+        <Tabs value={value} onChange={handleChange}>
             <Tab icon={<LiveTvIcon />} label="Movies" />
             <Tab icon={<TrendingUpIcon />} label="Trending" />
             <Tab icon={<LocalMoviesIcon />} label="TV Series" />
           </Tabs>
-        }
+        )}
 
           {/* Menu Icon */}
-            <MenuIcon onClick={setOpenDrawer} className={classes.openDrawer}/>
+            <MenuIcon onClick={setOpenDrawer} className={classes.openDrawer} />
         </Toolbar>
       </AppBar>
 
       {/* Drawer */}
       {
       isMatch && 
-      <DrawerComponent 
-          openDrawer={openDrawer} 
-          setOpenDrawer={setOpenDrawer} />
+      <DrawerComponent openDrawer={openDrawer} setOpenDrawer={setOpenDrawer} />
       }
       </>
     )

@@ -1,4 +1,5 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom'
 
 import { Drawer, List, ListItemText, ListItem, makeStyles, ListItemIcon } from "@material-ui/core";
 
@@ -20,8 +21,15 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const DrawerComponent = ({openDrawer, setOpenDrawer}) => {
-
     const classes = useStyles();
+
+    //History state
+    const history = useHistory();
+    
+    const navigation = (link) => {
+        history.push(`${link}`)
+    };
+
     return (
        <Drawer 
        classes={{paper: classes.drawer}} 
@@ -34,21 +42,21 @@ const DrawerComponent = ({openDrawer, setOpenDrawer}) => {
                  <ListItemIcon>
                    <LocalMoviesIcon className={classes.icon}/>
                  </ListItemIcon>
-                 <ListItemText primary='Movies' />
+                 <ListItemText onClick={() => navigation("")} primary='Movies' />
                </ListItem>
 
                <ListItem>
                  <ListItemIcon>
                    <TrendingUpIcon className={classes.icon}/>
                  </ListItemIcon>
-                 <ListItemText primary='Trending' />
+                 <ListItemText onClick={() => navigation("trending")} primary='Trending' />
                </ListItem>
 
                <ListItem>
                  <ListItemIcon>
                    <MovieFilterIcon className={classes.icon}/>
                  </ListItemIcon>
-                 <ListItemText primary='Tv Series' />
+                 <ListItemText onClick={() => navigation("series")} primary='Tv Series' />
                </ListItem>
            </List>
        </Drawer>
